@@ -1,66 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mytheresa Test API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Features
 
-## About Laravel
+- **Discounts**: Products in the "boots" category receive a 30% discount. Additionally, products with SKU `000003` have a 15% discount.
+- **Filters**: 
+  - Filter by `category`
+  - Filter by `priceLessThan` (applied before discounts are applied)
+- **Returns**: The API returns a maximum of 5 products at a time with their corresponding prices and discount information.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Endpoint
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### `GET /products`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Fetch the list of products with discounts applied where necessary.
 
-## Learning Laravel
+#### Query Parameters
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **category** (optional): Filter products by their category.
+- **priceLessThan** (optional): Filter products by price before discounts are applied. Only products with a price less than or equal to the value provided will be returned.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### Example Requests
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Without any filters**:
+   ```bash
+   GET /products
+2. **Filtered by category (boots)**:
+    ```bash
+   GET /products?category=boots
+3. **Filtered by category (boots) and price (priceLessThan=90000)**:
+    ```bash
+   GET /products?category=boots&priceLessThan=90000
 
-## Laravel Sponsors
+## Installation and Setup
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Prerequisites
 
-### Premium Partners
+- **Docker**: Make sure Docker is installed on your machine.
+- **Docker Compose**: Ensure Docker Compose is available to manage multi-container Docker applications.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Steps to Run the Application
 
-## Contributing
+1. **Clone the repository**:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```bash
+    git clone https://github.com/Joante/mytheresa.git
+    cd mytheresa
+    ```
 
-## Code of Conduct
+2. **Build and start the application using Docker**:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    ```bash
+    sh start.sh
+    ```
 
-## Security Vulnerabilities
+    This script will build the Docker containers and run the application.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. **Access the API**:
 
-## License
+    The API will be running on `http://localhost:8000`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    You can test the endpoint by using `curl`, Postman, or directly in your browser (for GET requests).
+
+### Running Tests
+
+To run the tests, use the following command:
+
+```bash
+docker-compose exec app php artisan test
+
+## Technologies Used
+
+- **PHP 8.0+**: The programming language used for developing the API.
+- **Laravel 8**: PHP framework for building the API.
+- **Docker**: Containerization for running the application in a consistent environment.
+- **MySQL**: Database to store product data.
+- **PHPUnit**: Testing framework for automated testing.

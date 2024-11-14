@@ -5,7 +5,11 @@ docker-compose up -d --build
 
 docker-compose exec app cp .env.example .env
 
-./wait-for-it.sh mysql:3306 --timeout=30 --strict -- echo "MySQL is up - executing command"
+docker-compose exec app composer install
+
+docker-compose exec app php artisan key:generate
+
+./wait-for-it.sh mysql:3306 --timeout=10 --strict -- echo "MySQL is up - executing command"
 
 docker-compose exec app php artisan migrate:fresh
 
