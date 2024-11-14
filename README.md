@@ -23,13 +23,13 @@ Fetch the list of products with discounts applied where necessary.
 
 1. **Without any filters**:
    ```bash
-   GET /products
+   GET /api/products
 2. **Filtered by category (boots)**:
     ```bash
-   GET /products?category=boots
+   GET /api/products?category=boots
 3. **Filtered by category (boots) and price (priceLessThan=90000)**:
     ```bash
-   GET /products?category=boots&priceLessThan=90000
+   GET /api/products?category=boots&priceLessThan=90000
 
 ## Installation and Setup
 
