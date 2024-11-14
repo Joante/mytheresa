@@ -67,8 +67,9 @@ To run the tests, use the following command:
 
 ```bash
 docker-compose exec app php artisan test
+```
 
-## Technologies Used
+### Technologies Used
 
 - **PHP 8.0+**: The programming language used for developing the API.
 - **Laravel 8**: PHP framework for building the API.
